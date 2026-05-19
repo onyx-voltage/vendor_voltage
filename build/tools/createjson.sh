@@ -14,8 +14,15 @@
 #
 
 #$1=TARGET_DEVICE, $2=PRODUCT_OUT, $3=LINEAGE_VERSION
-existingOTAjson=./vendor/ota/$1.json
-output=./vendor/ota/$1.json
+filename=$3
+if [[ $filename == *"VANILLA"* ]]; then
+    variant="vanilla"
+    existingOTAjson=./vendor/OTAupdate/vanilla/$1.json
+else
+    variant="gapps"
+    existingOTAjson=./vendor/OTAupdate/gapps/$1.json
+fi
+output=./out/target/product/$1/$1.json
 
 if [ -f $existingOTAjson ]; then
 	#get data from already existing device json
@@ -25,7 +32,7 @@ if [ -f $existingOTAjson ]; then
 	device=`grep -n "\"device\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
 	filename=$3
 	version=`echo "$3" | cut -d'-' -f2`
-	download="https://sourceforge.net/projects/voltage-os/files/$1/$filename/download"
+	download="https://sourceforge.net/projects/onyx-development/files/voltageos/16/$variant/$filename/download"
 	buildprop=$2/system/build.prop
 	linenr=`grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1`
 	timestamp=`sed -n $linenr'p' < $buildprop | cut -d'=' -f2`
@@ -53,7 +60,7 @@ if [ -f $existingOTAjson ]; then
   ]
 }' >> $output
 
-        echo "vendor/ota/$1.json"
+        echo "out/target/product/$1/$1.json"
 else
 	#if not already supported, create dummy file with info in it on how to
 	echo 'There is no official support for this device yet' >> $output;

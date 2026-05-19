@@ -109,4 +109,5 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
   ro.voltage.platform_release_or_codename=$(VOLTAGE_PLATFORM_RELEASE_OR_CODENAME) \
   org.voltage.version=$(VOLTAGEVERSION) \
   ro.voltage.maintainer.gpg_key=$(VOLTAGE_GPG_KEY) \
-  ro.voltage.maintainer.gpg_uid="$(VOLTAGE_GPG_UID)"
+  ro.voltage.maintainer.gpg_uid="$(VOLTAGE_GPG_UID)" \
+  ro.voltage.package.type=GAPPS
