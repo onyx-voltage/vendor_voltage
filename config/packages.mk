@@ -21,12 +21,8 @@ PRODUCT_PACKAGES += \
     OmniJaws \
     AppCompatConfig \
     VoltageJump \
-    AppDataBackup
-
-ifeq ($(VOLTAGE_BUILD_TYPE),OFFICIAL)
-    PRODUCT_PACKAGES += \
-        Updater
-endif
+    AppDataBackup \
+    Updater
 
 ifneq ($(PRODUCT_NO_CAMERA),true)
 PRODUCT_PACKAGES += \
